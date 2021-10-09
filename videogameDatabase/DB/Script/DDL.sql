@@ -2,13 +2,6 @@ CREATE DATABASE videogame;
 GO
 USE videogame;
 
-CREATE TABLE Developer
-(
-	developerId INT IDENTITY(1,1),
-	name NVARCHAR(100) NOT NULL
-	PRIMARY KEY(developerId)
-)
-
 CREATE TABLE Rating
 (
 	ratingId INT IDENTITY(1,1),
@@ -20,13 +13,18 @@ CREATE TABLE Videogame
 (
 	videogameId INT IDENTITY(1,1),
 	ratingId INT,
-	developerId INT,
 	title NVARCHAR(100) NOT NULL,
 	price FLOAT,
 	releaseDate DATE,
 	PRIMARY KEY(videogameId),
 	FOREIGN KEY(ratingId) REFERENCES Rating(ratingId),
-	FOREIGN KEY(developerId) REFERENCES Developer(developerId)
+)
+
+CREATE TABLE Developer
+(
+	developerId INT IDENTITY(1,1),
+	[name] NVARCHAR(100) NOT NULL,
+	PRIMARY KEY(developerId)
 )
 
 CREATE TABLE Genre
@@ -48,6 +46,16 @@ CREATE TABLE [Platform]
 	platformId INT IDENTITY(1,1),
 	[name] NVARCHAR(50) NOT NULL,
 	PRIMARY KEY(platformId)
+)
+
+CREATE TABLE VideogameDeveloper
+(
+    id INT IDENTITY(1,1),
+    videogameId INT,
+    developerId INT,
+    PRIMARY KEY(id),
+    FOREIGN KEY(videogameId) REFERENCES Videogame(videogameId),
+    FOREIGN KEY(developerId) REFERENCES Developer(developerId),
 )
 
 CREATE TABLE VideogameGenre
