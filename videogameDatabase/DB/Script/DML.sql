@@ -1,3 +1,6 @@
+USE videogame
+GO
+
 INSERT INTO Rating
     (esrbRating)
 VALUES
